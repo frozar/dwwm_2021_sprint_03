@@ -63,19 +63,21 @@ button {
   justify-content: center;
 }
 
-#table {
+#table_container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-/* table,
-tr, */
 th,
 td {
   border: 1px solid black;
   padding: 4px;
+}
+
+td {
+  text-align: center;
 }
 
 table {
