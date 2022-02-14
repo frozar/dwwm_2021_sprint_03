@@ -1,4 +1,5 @@
 const tickets = [];
+let id = 0;
 
 const button_ask_help = document.getElementById("ask_help");
 
@@ -14,7 +15,11 @@ function computeFormattedDate(date) {
   )}:${padding(date.getSeconds())}`;
 }
 
-function addNewLine(name, date) {
+function addNewLine(ticket) {
+  const id = ticket[0];
+  const name = ticket[1];
+  const date = ticket[2];
+  const state = ticket[3];
   const tr = document.createElement("tr");
   const td_0 = document.createElement("td");
   const td_1 = document.createElement("td");
@@ -26,19 +31,51 @@ function addNewLine(name, date) {
   const button = document.createElement("button");
   button.classList.add(["passe_mon_tour"]);
   button.textContent = "Je passe mon tour";
-  td_2.appendChild(button);
+  button.value = id;
+
+  button.addEventListener("click", (event) => {
+    console.dir(event);
+    console.dir(event.target);
+    console.log("value", event.target.value);
+    const current_id = parseInt(event.target.value);
+    for (let i = 0; i < tickets.length; ++i) {
+      const current_ticket = tickets[i];
+      if (current_ticket[0] === current_id) {
+        current_ticket[3] = "passed";
+        break;
+      }
+    }
+
+    renderTable(tickets);
+  });
+
+  if (state === "waiting") {
+    td_2.appendChild(button);
+  }
 
   tr.appendChild(td_0);
   tr.appendChild(td_1);
   tr.appendChild(td_2);
 
+  console.log("state", state);
+  console.log("state === passed", state === "passed");
+  tr.classList.add(["line"]);
+
   const table = document.getElementById("table");
   table.appendChild(tr);
+
+  if (state === "passed") {
+    // tr.classList.add(["gris"]);
+    setTimeout(() => {
+      tr.classList.add(["gris"]);
+    }, 0);
+  }
 }
 
 function addNewTicket(name) {
   const date = new Date();
-  tickets.push([name, date]);
+  tickets.push([id, name, date, "waiting"]);
+  ++id;
 }
 
 function removeRows() {
@@ -61,10 +98,8 @@ function removeRows() {
 function renderTable(tickets) {
   removeRows();
   for (let i = 0; i < tickets.length; ++i) {
-    const mon_ticket = tickets[i];
-    const name = mon_ticket[0];
-    const date = mon_ticket[1];
-    addNewLine(name, date);
+    const ticket = tickets[i];
+    addNewLine(ticket);
   }
 }
 
@@ -89,3 +124,7 @@ button_ask_help.addEventListener("click", () => {
   // Rendu du tableau dans l'HTML à partir des données de 'tickets'
   renderTable(tickets);
 });
+
+// renderTable([["totoaaaa", new Date()]]);
+addNewTicket("totoaaaa");
+renderTable(tickets);

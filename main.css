@@ -83,3 +83,14 @@ td {
 table {
   border-collapse: collapse;
 }
+
+.line {
+  transition: all 0.5s ease;
+}
+
+.gris {
+  text-decoration: line-through;
+  background: grey;
+  color: white;
+  opacity: 0.6;
+}
