@@ -14,16 +14,19 @@ function computeFormattedDate(date) {
 }
 
 function passedTicketById(current_id) {
+  let found_index = -1;
   for (let i = 0; i < tickets.length; ++i) {
     const current_ticket = tickets[i];
     if (current_ticket[0] === current_id) {
       current_ticket[3] = "passed";
+      found_index = i;
       break;
     }
   }
+  return found_index;
 }
 
-function addNewLine(ticket) {
+function addNewLine(ticket, hasAnimation) {
   const id = ticket[0];
   const name = ticket[1];
   const date = ticket[2];
@@ -42,13 +45,10 @@ function addNewLine(ticket) {
   button.value = id;
 
   button.addEventListener("click", (event) => {
-    // console.dir(event);
-    // console.dir(event.target);
-    // console.log("value", event.target.value);
     const current_id = parseInt(event.target.value);
-    passedTicketById(current_id);
+    const index_animation = passedTicketById(current_id);
 
-    renderTable(tickets);
+    renderTable(tickets, index_animation);
   });
 
   if (state === "waiting") {
@@ -65,15 +65,23 @@ function addNewLine(ticket) {
   table.appendChild(tr);
 
   if (state === "passed") {
-    setTimeout(() => {
+    if (hasAnimation) {
+      setTimeout(() => {
+        tr.classList.add(["gris"]);
+      }, 0);
+    } else {
       tr.classList.add(["gris"]);
-    }, 0);
+    }
   }
 
   if (state === "done") {
-    setTimeout(() => {
+    if (hasAnimation) {
+      setTimeout(() => {
+        tr.classList.add(["done"]);
+      }, 0);
+    } else {
       tr.classList.add(["done"]);
-    }, 0);
+    }
   }
 }
 
@@ -100,11 +108,11 @@ function removeRows() {
   }
 }
 
-function renderTable(tickets) {
+function renderTable(tickets, indexAnimation) {
   removeRows();
   for (let i = 0; i < tickets.length; ++i) {
     const ticket = tickets[i];
-    addNewLine(ticket);
+    addNewLine(ticket, indexAnimation === i);
   }
 }
 
@@ -130,12 +138,8 @@ button_ask_help.addEventListener("click", () => {
   addNewTicket(input_text);
 
   // Rendu du tableau dans l'HTML à partir des données de 'tickets'
-  renderTable(tickets);
+  renderTable(tickets, -1);
 });
-
-addNewTicket("toto");
-addNewTicket("tata");
-renderTable(tickets);
 
 const button_refresh = document.getElementById("refresh");
 
@@ -156,12 +160,12 @@ button_refresh.addEventListener("click", () => {
   }
 
   // Rendu du tableau dans l'HTML à partir des données de 'tickets'
-  renderTable(tickets);
+  renderTable(tickets, -1);
 });
 
 const button_next = document.getElementById("next");
 
-button_next.addEventListener("click", () => {
+function toNextTicket() {
   let index_to_move = -1;
   for (let i = 0; i < tickets.length; ++i) {
     const current_ticket = tickets[i];
@@ -177,8 +181,20 @@ button_next.addEventListener("click", () => {
     const ticket_to_move = tickets[index_to_move];
     tickets.splice(index_to_move, 1);
     tickets.push(ticket_to_move);
+    return tickets.length - 1;
+  } else {
+    return -1;
   }
+}
+
+button_next.addEventListener("click", () => {
+  const indexAnimation = toNextTicket();
 
   // Rendu du tableau dans l'HTML à partir des données de 'tickets'
-  renderTable(tickets);
+  renderTable(tickets, indexAnimation);
 });
+
+// addNewTicket("toto");
+// addNewTicket("tata");
+// toNextTicket();
+// renderTable(tickets);
