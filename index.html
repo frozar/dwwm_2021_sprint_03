@@ -6,26 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <main>
-      <h1>Distributeur de tickets pour la promo EE</h1>
-      <h2>EE Ici c'est comme à la poissonerie EE, il faut faire la queue !</h2>
+      <h1>Distributeur de tickets pour la promo 🎫</h1>
+      <h2>👽 Ici c'est comme à la poissonerie 🐠, il faut faire la queue !</h2>
 
-      <div>
-        <label>Ton nom :</label>
-        <input />
-        <button>Je veux de l'aide EE</button>
+      <div id="form_container">
+        <div id="form">
+          <label for="name" id="form_label">Ton nom :</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            minlength="1"
+            size="20"
+          />
+          <button>Je veux de l'aide 👋</button>
+        </div>
       </div>
 
       <h2>Liste des apprenant.e.s</h2>
 
-      <div>
-        <button>Au suivant EE !</button>
-        <button>Rafraichir la liste EE</button>
+      <div id="action">
+        <div>
+          <button>Au suivant 🌬 !</button>
+          <button>Rafraichir la liste 🔄</button>
+        </div>
       </div>
 
-      <div>
+      <div id="table">
         <table>
           <tr>
             <th>Nom</th>
@@ -35,15 +50,15 @@
           <tr>
             <td>Oliver</td>
             <td>13/01/2022, 09:52:38</td>
-            <td>
-              <button>Je passe mon tour</button>
+            <td style="display: flex; justify-content: center">
+              <button class="passe_mon_tour">Je passe mon tour</button>
             </td>
           </tr>
           <tr>
             <td>Adèle</td>
             <td>13/01/2022, 09:52:46</td>
-            <td>
-              <button>Je passe mon tour</button>
+            <td style="display: flex; justify-content: center">
+              <button class="passe_mon_tour">Je passe mon tour</button>
             </td>
           </tr>
         </table>

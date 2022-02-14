@@ -1,3 +1,83 @@
+body {
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  font-family: "Roboto Mono", monospace;
+}
+
+main {
+  border-bottom: 3px #023047 dashed;
+  border-right: 3px #023047 dashed;
+  border-left: 3px #023047 dashed;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 h1 {
-  color: red;
+  background: #ffb703;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+h2 {
+  background: #8ecae6;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 1.2em;
+}
+
+#form_container {
+  display: flex;
+  justify-content: center;
+}
+
+#form {
+  width: 440px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#form_label {
+  font-size: 0.8em;
+  padding-top: 5px;
+}
+
+button {
+  background: #023047;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  border-width: 0;
+  height: 22px;
+  cursor: pointer;
+}
+
+.passe_mon_tour {
+  background: #fb8500;
+}
+
+#action {
+  display: flex;
+  justify-content: center;
+}
+
+#table {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* table,
+tr, */
+th,
+td {
+  border: 1px solid black;
+  padding: 4px;
+}
+
+table {
+  border-collapse: collapse;
 }
