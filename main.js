@@ -65,9 +65,14 @@ function addNewLine(ticket) {
   table.appendChild(tr);
 
   if (state === "passed") {
-    // tr.classList.add(["gris"]);
     setTimeout(() => {
       tr.classList.add(["gris"]);
+    }, 0);
+  }
+
+  if (state === "done") {
+    setTimeout(() => {
+      tr.classList.add(["done"]);
     }, 0);
   }
 }
@@ -130,17 +135,11 @@ button_ask_help.addEventListener("click", () => {
 
 addNewTicket("toto");
 addNewTicket("tata");
-addNewTicket("tutu");
-addNewTicket("t");
-passedTicketById(1);
-passedTicketById(2);
 renderTable(tickets);
 
 const button_refresh = document.getElementById("refresh");
 
 button_refresh.addEventListener("click", () => {
-  console.log("refresh");
-
   const indexes_to_delete = [];
   for (let i = 0; i < tickets.length; ++i) {
     const current_ticket = tickets[i];
@@ -154,6 +153,30 @@ button_refresh.addEventListener("click", () => {
   for (let i = 0; i < indexes_to_delete.length; ++i) {
     const index = indexes_to_delete[i];
     tickets.splice(index, 1);
+  }
+
+  // Rendu du tableau dans l'HTML à partir des données de 'tickets'
+  renderTable(tickets);
+});
+
+const button_next = document.getElementById("next");
+
+button_next.addEventListener("click", () => {
+  let index_to_move = -1;
+  for (let i = 0; i < tickets.length; ++i) {
+    const current_ticket = tickets[i];
+    const state = current_ticket[3];
+    if (state === "waiting") {
+      current_ticket[3] = "done";
+      index_to_move = i;
+      break;
+    }
+  }
+
+  if (index_to_move !== -1) {
+    const ticket_to_move = tickets[index_to_move];
+    tickets.splice(index_to_move, 1);
+    tickets.push(ticket_to_move);
   }
 
   // Rendu du tableau dans l'HTML à partir des données de 'tickets'

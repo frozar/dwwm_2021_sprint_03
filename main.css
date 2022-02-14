@@ -85,7 +85,7 @@ table {
 }
 
 .line {
-  transition: all 0.5s ease;
+  transition: all 5s ease;
 }
 
 .gris {
@@ -93,4 +93,8 @@ table {
   background: grey;
   color: white;
   opacity: 0.6;
+}
+
+.done {
+  background: green;
 }
